@@ -2,13 +2,16 @@ package model
 
 import (
 	"time"
+
+	"gopkg.in/mgo.v2/bson"
 )
 
 type Shop struct {
-	name      string    `bson:"name"`
-	detail    string    `bson:"detail"`
-	CreatedAt time.Time `bson:"created_at"`
-	UpdatedAt time.Time `bson:"updated_at"`
+	ID          bson.ObjectId `json:"_id" bson:"_id,omitempty"`
+	Name        string        `bson:"name" form:"name" json:"name" xml:"name" binding:"required"`
+	Detail      string        `bson:"detail" form:"detail" json:"detail" xml:"detail" binding:"required"`
+	CreatedTime time.Time     `json:"created_time" bson:"created_time"`
+	UpdatedTime time.Time     `json:"updated_time" bson:"updated_time"`
 }
 
 type Shops []Shop

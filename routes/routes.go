@@ -25,8 +25,11 @@ func SetupRouter(connectionDB *mgo.Database) *gin.Engine {
 		})
 	})
 
-	api.GET("/shops", shopController.Gets)
-	api.GET("/shop/:id", shopController.Get)
+	api.GET("/shop", shopController.Gets)
+	api.GET("/shop/:_id", shopController.Get)
+	api.POST("/shop", shopController.Create)
+	api.PUT("/shop/:_id", shopController.Update)
+	api.DELETE("/shop/:_id", shopController.DeleteByID)
 
 	return r
 }
