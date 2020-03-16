@@ -1,13 +1,22 @@
 package config
 
 import (
-	"github.com/spf13/viper"
+	"os"
+
 	mgo "gopkg.in/mgo.v2"
 )
 
 func GetMongoDB() (*mgo.Database, error) {
-	host := viper.Get("MONGO_HOST").(string)
-	dbName := viper.Get("MONGO_DB_NAME").(string)
+	host := os.Getenv("MONGO_HOST")
+	dbName := os.Getenv("MONGO_DB_NAME")
+
+	if host == "" {
+		host = "localhost:27017"
+	}
+
+	if dbName == "" {
+		dbName = "go-shop"
+	}
 
 	session, err := mgo.Dial(host)
 	if err != nil {

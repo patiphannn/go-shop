@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  app:
+    container_name: go-shop-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      MONGO_HOST: db:27017
+      MONGO_DB_NAME: go-shop
+
+  db:
+    container_name: go-shop-db
+    image: mongo:latest
+    restart: unless-stopped
+    ports:
+      - "27018:27017"
