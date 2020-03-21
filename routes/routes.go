@@ -7,6 +7,7 @@ import (
 	"gopkg.in/mgo.v2"
 )
 
+// SetupRouter is router
 func SetupRouter(connectionDB *mgo.Database) *gin.Engine {
 	r := gin.Default()
 	api := r.Group("/api")

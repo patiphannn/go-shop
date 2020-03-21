@@ -6,6 +6,7 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
+// Shop is field shop
 type Shop struct {
 	ID          bson.ObjectId `json:"_id" bson:"_id,omitempty"`
 	Name        string        `bson:"name" form:"name" json:"name" xml:"name" binding:"required"`
@@ -14,4 +15,5 @@ type Shop struct {
 	UpdatedTime time.Time     `json:"updated_time" bson:"updated_time"`
 }
 
+// Shops is multiple shop
 type Shops []Shop

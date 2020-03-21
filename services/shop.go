@@ -8,6 +8,7 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
+// ShopService is all services
 type ShopService interface {
 	Gets() ([]model.Shop, error)
 	Get(_id string) (model.Shop, error)
@@ -16,21 +17,22 @@ type ShopService interface {
 	DeleteByID(_id string) error
 }
 
+// ShopDb is mongodb
 type ShopDb struct {
 	ConnectionDB *mgo.Database
 }
 
-// Static Collection
+// ShopCollection is mongo collection name
 const ShopCollection = "shops"
 
-// Get all
+// Gets is find all
 func (db ShopDb) Gets() ([]model.Shop, error) {
 	data := model.Shops{}
 	err := db.ConnectionDB.C(ShopCollection).Find(bson.M{}).All(&data)
 	return data, err
 }
 
-// Get once
+// Get is find once
 func (db ShopDb) Get(_id string) (model.Shop, error) {
 	data := model.Shop{}
 	objectID := bson.ObjectIdHex(_id)
@@ -38,14 +40,14 @@ func (db ShopDb) Get(_id string) (model.Shop, error) {
 	return data, err
 }
 
-// Create
+// Create is create data
 func (db ShopDb) Create(data model.Shop) error {
 	data.CreatedTime = time.Now()
 	data.UpdatedTime = data.CreatedTime
 	return db.ConnectionDB.C(ShopCollection).Insert(data)
 }
 
-// Update
+// Update is update data
 func (db ShopDb) Update(_id string, data model.Shop) error {
 	objectID := bson.ObjectIdHex(_id)
 	newData := bson.M{
@@ -58,7 +60,7 @@ func (db ShopDb) Update(_id string, data model.Shop) error {
 	return db.ConnectionDB.C(ShopCollection).UpdateId(objectID, newData)
 }
 
-// Delete By ID
+// DeleteByID is delete by id
 func (db ShopDb) DeleteByID(_id string) error {
 	objectID := bson.ObjectIdHex(_id)
 	return db.ConnectionDB.C(ShopCollection).RemoveId(objectID)

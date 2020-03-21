@@ -9,10 +9,12 @@ import (
 	service "github.com/polnoy/go-shop/services"
 )
 
+// ShopAPI is ShopService
 type ShopAPI struct {
 	ShopService service.ShopService
 }
 
+// Gets is find all
 func (api ShopAPI) Gets(c *gin.Context) {
 	data, err := api.ShopService.Gets()
 	if err != nil {
@@ -26,6 +28,7 @@ func (api ShopAPI) Gets(c *gin.Context) {
 	})
 }
 
+// Get is find once
 func (api ShopAPI) Get(c *gin.Context) {
 	_id := c.Param("_id")
 	data, err := api.ShopService.Get(_id)
@@ -40,6 +43,7 @@ func (api ShopAPI) Get(c *gin.Context) {
 	})
 }
 
+// Create is create data
 func (api ShopAPI) Create(c *gin.Context) {
 	data := model.Shop{}
 	err := c.ShouldBindJSON(&data)
@@ -63,6 +67,7 @@ func (api ShopAPI) Create(c *gin.Context) {
 	})
 }
 
+// Update is update data
 func (api ShopAPI) Update(c *gin.Context) {
 	_id := c.Param("_id")
 	data := model.Shop{}
@@ -87,6 +92,7 @@ func (api ShopAPI) Update(c *gin.Context) {
 	})
 }
 
+// DeleteByID is delete by id
 func (api ShopAPI) DeleteByID(c *gin.Context) {
 	_id := c.Param("_id")
 	err := api.ShopService.DeleteByID(_id)
