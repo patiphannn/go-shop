@@ -13,3 +13,7 @@
 ```
   docker-compose up -d --build
 ```
+## Run test
+```
+  go test
+```
